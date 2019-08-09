@@ -1,15 +1,19 @@
 type Comparer<T> = (arg1: T, arg2: T) => number
-type Sort<T> = (arr: T[], callback: Comparer<T>) => T[]
-type Partiotion<T> = (arr: T[], left: number, right: number) => number
-type QuickSort<T> = (arr: T[], left: number, right: number) => void
 
 type Obj = {
     a: number
 }
 
-const arr1 = [{ a: 88 }, { a: 777 }, { a: 567 }, { a: 86 }, { a: 11 }, { a: 3 }, { a: 13 }, { a: 23 }, { a: 5 }]
+type OtherObj = {
+    a: number,
+    b: string,
+    c: boolean
+}
 
-const sort: Sort<Obj> = (arr: Obj[], comparer: Comparer<Obj>): Obj[] => {
+const arr1 = [{ a: 88 }, { a: 777 }, { a: 567 }, { a: 86 }, { a: 11 }, { a: 3 }, { a: 13 }, { a: 23 }, { a: 5 }]
+const arr2 = [{ a: 2, b: 'KKK', c: false }, { a: 33, b: 'KKK', c: false }, { a: 12, b: 'KKK', c: false }, { a: 7, b: 'KKK', c: false }, { a: 1, b: 'KKK', c: false }]
+
+const sort = <T>(arr: T[], comparer: Comparer<T>): T[] => { // <T> will not work in tsx files
 
     // the comparer is taking the same type and returns number < 0; > 0; == 0;
 
@@ -19,11 +23,11 @@ const sort: Sort<Obj> = (arr: Obj[], comparer: Comparer<Obj>): Obj[] => {
     // partition ---> returns the index of the pivot
     // we have ---> recursion with 2^n complexity
 
-    const partition: Partiotion<Obj> = (arr: Obj[], left: number, right: number) => {
+    const partition = (arr: T[], left: number, right: number): number => {
         const pivot = arr[left]
         let l = left + 1
         let r = right
-        while(l <= r) {
+        while (l <= r) {
 
             if (comparer(arr[l], pivot) > 0 && comparer(arr[r], pivot) < 0) {
                 // swap
@@ -36,7 +40,7 @@ const sort: Sort<Obj> = (arr: Obj[], comparer: Comparer<Obj>): Obj[] => {
                 l++
             }
 
-            if(comparer(arr[r], pivot) >= 0) {
+            if (comparer(arr[r], pivot) >= 0) {
                 r--
             }
         }
@@ -44,11 +48,11 @@ const sort: Sort<Obj> = (arr: Obj[], comparer: Comparer<Obj>): Obj[] => {
         // swap pivot
         arr[left] = arr[l - 1]
         arr[l - 1] = pivot
-        
+
         return l - 1
     }
 
-    const quickSort: QuickSort<Obj> = (arr: Obj[], left: number, right: number) => {
+    const quickSort = (arr: T[], left: number, right: number): void => {
         if (left < right) {
             let i = partition(arr, left, right)
             quickSort(arr, left, i - 1)
@@ -60,4 +64,5 @@ const sort: Sort<Obj> = (arr: Obj[], comparer: Comparer<Obj>): Obj[] => {
     return arr
 }
 
-console.log(sort(arr1, (a: Obj, b: Obj) => a.a - b.a))
+console.log(sort<Obj>(arr1, (a, b) => a.a - b.a))
+console.log(sort<OtherObj>(arr2, (a, b) => a.a - b.a))
