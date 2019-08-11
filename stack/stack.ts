@@ -90,7 +90,10 @@ const tokenizer = (code: string, stack: Stack): Stack => {
             current++
             continue
         }
-        
+
+        // else syntax error :D
+
+        throw new Error(`Uncaught SyntaxError: Unexpected token ${char}`)
     }
 
     return stack

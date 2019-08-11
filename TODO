@@ -1,0 +1,12 @@
+Setup:
+    ☐ use the parser package.json
+    ☐ set the tsconfig
+    ☐ set tests
+
+Crawler: 
+    ☐ Separate the crawling thing from the parser
+    ☐ Crawl multiple levels in
+    ☐ Find way to inject the document in a DOM to use the DOM API
+
+IntroAlgo:
+    
