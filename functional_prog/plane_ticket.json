@@ -1,0 +1,42 @@
+{
+    "flightNumber": "az-543312",
+    "from": {
+        "country": "Iraq",
+        "city": "Baghdat",
+        "airfleet": "Mohhamed"
+    },
+    "to": {
+        "country": "Bulgaria",
+        "city": "Sofia",
+        "airfleet": "Sofia Airport"
+    },
+    "date": "12.12.2019 22:22:22",
+    "delayIn": 15,
+    "delayOut": 15,
+    "flightStatus": "crashed",
+    "company": "BulgariaAir",
+    "companyOrigin": "Bulgaria",
+    "passengers": [
+        {
+            "id": 221321,
+            "name": "John",
+            "class": 2,
+            "ticketPrice": 234,
+            "buyingDate": "12.12.2019 22:22:22"
+        },
+        {
+            "id": 221321,
+            "name": "John",
+            "class": 2,
+            "ticketPrice": 234,
+            "buyingDate": "12.12.2019 22:22:22"
+        },
+        {
+            "id": 221321,
+            "name": "John",
+            "class": 2,
+            "ticketPrice": 234,
+            "buyingDate": "12.12.2019 22:22:22"
+        }
+    ]
+}

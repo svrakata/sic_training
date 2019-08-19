@@ -34,6 +34,11 @@ class Stack implements StackInterface {
     pop() {
         return this.stack.pop()
     }
+
+    peek() {
+        return this.stack[this.stack.length - 1]
+    }
+
 }
 
 // typeguards
@@ -49,9 +54,9 @@ const tokenizer = (code: string, stack: Stack): Stack => {
 
     // loops through the entire line of code
     // this is from the smallest compiler repo
-    while(current < tokens.length) {
+    while (current < tokens.length) {
         let char = tokens[current]
-        
+
         // checks for white space and jumps to the next iteration
         const WHITESPACE = /\s/
 
@@ -59,14 +64,14 @@ const tokenizer = (code: string, stack: Stack): Stack => {
             current++
             continue
         }
-        
+
         // checks for number
         const NUMBER = /[0-9]/
 
         if (NUMBER.test(char)) {
             let value = ''
 
-            while(NUMBER.test(char)) {
+            while (NUMBER.test(char)) {
                 value += char
                 char = tokens[++current]
             }
@@ -101,8 +106,12 @@ const tokenizer = (code: string, stack: Stack): Stack => {
 
 
 // it will be cool if we can read the code from file :D
-const stack1 = new Stack()
 
-tokenizer("2 3 + 3 4 5 *", stack1)
-console.log(stack1)
+const stack = tokenizer("2 3 + 3 4 5 *", new Stack())
+
+const parser = () => {
+
+}
+
+console.log(stack);
 

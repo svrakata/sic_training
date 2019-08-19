@@ -1,0 +1,1 @@
+export default log = (fn, args = []) => console.log(fn.apply(null, args));

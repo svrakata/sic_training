@@ -5,55 +5,88 @@
 // we have 1 second, 1 minute, 1 hour, 1 day, 1 month, 1 year, 1 century
 // 1 second = 1000000 microseconds
 
-type Times = {
+type InpTime = {
     seconds?: number,
     minutes?: number,
     hours?: number,
     days?: number,
-    years?: number
+    years?: number,
+    centuries?: number,
 }
 
+type Times = {
+    type: string, count: number, value: number
+}
 
-const getMicroseconds = ({ seconds = 0, minutes = 0, hours = 0, days = 0, years = 0 }: Times = {}): number => {
+type Complexity = {
+    (n: number): number
+}
+
+const getMicroseconds = ({
+    seconds = 0,
+    minutes = 0,
+    hours = 0,
+    days = 0,
+    years = 0
+}: InpTime = {}): Times => {
     const microseconds = 1000000 // in 1 second
-    
+
     if (seconds) {
-        return seconds * microseconds
+        return  {
+            type: "seconds",
+            count: seconds,
+            value: seconds * microseconds,
+        }
     }
 
     if (minutes) {
-        return minutes * 60 * microseconds
+        return {
+            type: "minutes",
+            count: minutes,
+            value: minutes * 60 * microseconds
+        }
     }
 
     if (hours) {
-        return hours * 60 * 60 * microseconds
+        return {
+            type: "hours",
+            count: hours,
+            value: hours * 60 * 60 * microseconds
+        }
     }
 
     if (days) {
-        return days * 24 * 60 * 60 * microseconds
+        return {
+            type: "days", 
+            count: days,
+            value: days * 24 * 60 * 60 * microseconds
+        }
     }
 
     if (years) {
-        return years * 365 * 24 * 60 * 60 * microseconds
+        return {
+            type: "years",
+            count: years,
+            value: years * 365 * 24 * 60 * 60 * microseconds
+        }
     }
 }
 
 // make a function which takes the complexity and returns the n
 
-const logN = (): number => {
+const maxN = (complexity: Complexity, time: Times): string => {
     let n = 1
 
-    for(;;n++) {
-
-        console.log(n, Math.log(n));
-        if (Math.log(n) >= getMicroseconds({ seconds: 1 })) {
-            return n
+    for (; ; n++) {
+        const calcs = complexity(n)
+        if (calcs >= time.value) {
+            return `Max number of calculations is ${n} for ${time.count} ${time.type}`
         }
 
         if (n > Number.MAX_SAFE_INTEGER) {
-            return
+            return `The number of calculations exceeds ${Number.MAX_SAFE_INTEGER} count`
         }
     }
 }
 
-console.log(logN());
+console.log(maxN(n => Math.pow(2, n), getMicroseconds({ years: 100 })));
